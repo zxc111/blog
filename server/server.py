@@ -11,6 +11,7 @@ from tornado.log import access_log
 
 from utils.controller_loader import ControllerLoader
 from models.base import Connection, LoadModule
+from ui_modules.page_modules import Header, Footer
 
 
 class Application(Application):
@@ -28,6 +29,11 @@ class Application(Application):
             cookie_secret="temp",
             xsrf_cookies=True,
             debug=debug,
+            template_path="templates",
+            ui_modules={
+                "Header": Header,
+                "Footer": Footer,
+            },
         )
         super(Application, self).__init__(handlers, **settings)
 

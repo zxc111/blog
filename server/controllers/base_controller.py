@@ -48,3 +48,11 @@ class BaseController(RequestHandler):
 
     def prepare(self):
         pass
+
+    def save(self, obj):
+        try:
+            self.session.add(obj)
+            self.session.commit()
+        except Exception as e:
+            logging.error(e, exc_info=True)
+            self.session.rollback()

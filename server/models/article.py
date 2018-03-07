@@ -11,7 +11,6 @@ from models.base import Base
 
 
 class Article(Base):
-    """未验证的代理"""
     __tablename__ = "article"
 
     id = Column(Integer, primary_key=True)
