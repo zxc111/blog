@@ -1,0 +1,51 @@
+# coding=utf-8
+import logging
+
+
+class Config:
+    def __init__(self, env):
+        self.mysql = self.mysql_list[env]
+        self.redis = self.redis_list[env]
+
+    @property
+    def mysql_list(self):
+
+        SQL_CLI = "pymysql"
+        try:
+            import MySQLdb
+            SQL_CLI = "mysqldb"
+        except:
+            pass
+        logging.warn("mysql connect cli: %s" % SQL_CLI)
+
+        return dict(
+            dev=dict(
+                name_or_url='mysql+{}://root:root@192.168.0.13/test?charset=utf8mb4'.format(SQL_CLI),
+                pool_recycle=3600,
+                echo=False,  # True,
+                pool_size=50,
+            ),
+
+            production=dict(
+                name_or_url='mysql+{}://',
+                pool_size=50,
+                pool_recycle=3600,
+                echo=False,
+                encoding='utf8',
+            ),
+            test=dict(
+                name_or_url='sqlite:///:memory:',
+                echo=False,
+                encoding='utf8',
+            ),
+        )
+
+    @property
+    def redis_list(self):
+        return dict(
+            dev=dict(host="127.0.0.1", port="22334", db=1),
+
+            test=dict(host="127.0.0.1", port="22334", db=2),
+
+            production=dict(host="192.168.100.50", port="6384", db=0),
+        )
