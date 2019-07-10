@@ -56,3 +56,5 @@ class BaseController(RequestHandler):
         except Exception as e:
             logging.error(e, exc_info=True)
             self.session.rollback()
+    def check_xsrf_cookie(self):
+        pass

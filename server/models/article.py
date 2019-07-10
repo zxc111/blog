@@ -19,3 +19,13 @@ class Article(Base):
     created_at = Column(Integer, default=time.time, index=True)
     updated_at = Column(Integer, default=time.time, index=True)
     owner = Column(Integer)
+
+    @property
+    def dict(self):
+        return dict(
+                id=self.id,
+                title=self.title,
+                content=self.content,
+                created_at=self.created_at,
+                updated_at=self.updated_at,
+                )
