@@ -8,10 +8,18 @@ class ArticleList(BaseController):
     urls = r"/article/list/?"
 
     def get(self):
-        articles = self.session.query(Article).all()
+        page = int(self.get_argument("page", 0))
+        page_size = int(self.get_argument("page_size", 10))
+        if page_size > 10 or page_size <= 0:
+            page_size = 10
+        count = self.session.query(Article).count()
+        articles = self.session.query(Article).offset(page*page_size).limit(page_size).all()
         self.write(
                 dict(
-                    data=[i.dict for i in articles],
+                    data=dict(
+                        articles=[i.dict for i in articles],
+                        total=count,
+                        ),
                     status=0
                     )
                 )

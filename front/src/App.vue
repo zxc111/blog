@@ -1,26 +1,17 @@
 <template>
   <div id="app">
-    <!-- <div>
-      <p>
-        If Element is successfully added to this project, you'll see an
-        <code v-text="'<el-button>'"></code>
-        below
-      </p>
-      <el-button>el-button</el-button>
-    </div> -->
+
     <el-row>
-      <el-col :span="6">
+      <el-col :span="4">
         <div class="grid-content"></div>
       </el-col>
-      <el-col :span="12">
+      <el-col :span="16">
         <div>
-          <!-- <HelloWorld msg="Title" body="test111" /> -->
         <router-view/>
 
-           <!-- <li><router-link :to="{ name: 'about' }">foo</router-link></li> -->
         </div>
       </el-col>
-      <el-col :span="6">
+      <el-col :span="4">
         <div class="grid-content"></div>
       </el-col>
     </el-row>
