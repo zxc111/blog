@@ -8,12 +8,18 @@ class ArticleList(BaseController):
     urls = r"/article/list/?"
 
     def get(self):
-        page = int(self.get_argument("page", 0))
+        page = int(self.get_argument("page", 1))
         page_size = int(self.get_argument("page_size", 10))
-        if page_size > 10 or page_size <= 0:
+        if page_size > 10 or page_size < 1:
             page_size = 10
+        page -= 1
         count = self.session.query(Article).count()
-        articles = self.session.query(Article).offset(page*page_size).limit(page_size).all()
+        articles = (self.session
+                .query(Article)
+                .order_by(Article.id.asc())
+                .offset(page*page_size)
+                .limit(page_size)
+                .all())
         self.write(
                 dict(
                     data=dict(
