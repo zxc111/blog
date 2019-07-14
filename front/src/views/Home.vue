@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div v-for="article in articles">
-      <HelloWorld :msg="article.title" v-bind:body="article.content" />
+      <HelloWorld :msg="article.title" :body="article.content" :aid="article.aid" />
     </div>
     <el-pagination
       layout="prev, pager, next, total, sizes"
@@ -54,6 +54,11 @@ export default {
             alert("error");
           }
         });
+        // console.log(123);
+        setTimeout(_this.$prism.highlightAll, 1000)      ;
+        // setTimeout(function() {console.log(321)}, 10000)      ;
+        // _this.$prism.highlightElement(document.getElementsByClassName("hello"));
+
     }
   },
   mounted() {

@@ -4,18 +4,19 @@ import router from './router'
 import './plugins/element.js'
 
 
-Vue.config.productionTip = false
 import axios from 'axios'
 import VueAxios from 'vue-axios'
  
 import Prism from 'prismjs';
-import "prismjs";
-import "prismjs/themes/prism-tomorrow.css";
+// import "prismjs";
+// import "prismjs/themes/prism-tomorrow.css";
 
 // import Bulma from 'bulma/css/bulma.css'
+Vue.config.productionTip = false
 
 Prism.highlightAll();
 Vue.use(VueAxios, axios)
+Vue.prototype.$prism = Prism;
 
 new Vue({
   router,

@@ -23,7 +23,7 @@ class Article(Base):
     @property
     def dict(self):
         return dict(
-                id=self.id,
+                aid=self.id,
                 title=self.title,
                 content=self.content,
                 created_at=self.created_at,

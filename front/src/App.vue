@@ -2,16 +2,16 @@
   <div id="app">
 
     <el-row>
-      <el-col :span="4">
+      <el-col :span="7">
         <div class="grid-content"></div>
       </el-col>
-      <el-col :span="16">
+      <el-col :span="10">
         <div>
         <router-view/>
 
         </div>
       </el-col>
-      <el-col :span="4">
+      <el-col :span="7">
         <div class="grid-content"></div>
       </el-col>
     </el-row>
