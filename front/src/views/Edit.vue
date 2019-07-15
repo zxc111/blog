@@ -1,15 +1,17 @@
 <template>
   <div>
+    <div style="margin-top: 15px;">
+      <el-input placeholder="标题" v-model="title">
+      </el-input>
+    </div>
     <markdown-editor v-model="content" ref="markdownEditor"></markdown-editor>
     <el-button type="primary" v-on:click="save">save</el-button>
     <el-button type="info" v-on:click="reset">reset</el-button>
-    <!-- <el-button type="info" v-on:click="reset">reset</el-button> -->
   </div>
 </template>
 
 <script>
 import markdownEditor from "vue-simplemde/src/markdown-editor";
-// import func from "../../vue-temp/vue-editor-bridge";
 
 export default {
   components: {
@@ -17,39 +19,51 @@ export default {
   },
   data() {
     return {
-      content: ""
+      content: "",
+      title: "",
     };
   },
+  props: {
+    aid: String
+  },
   methods: {
-    echo: function() {
-      alert(this.content);
-    },
     reset: function() {
       this.content = "";
     },
     save: function() {
-      this.axios.post(
-         "/article/new",
-        {
-          title: "test",
+      var url = ""
+      if (this.aid == "" ) {
+        url = "/article/new"
+      } else {
+        url = "/article/"+this.aid
+      }
+      this.axios
+        .post(url, {
+          title: this.title,
           content: this.content
-        },
-      ).then(function(response) {
-        console.log(response);
-      });
+        })
+        .then(function(response) {
+          console.log(response);
+        });
     }
   },
   mounted() {
-    this.axios
-      .get("https://raw.githubusercontent.com/axios/axios/master/README.md")
-      .then(response => {
-        //   console.log(response.data);
-        this.content = response.data;
-      });
+    console.log(123);
+    if (this.aid == "") {
+      this.content = "";
+      return;
+    }
+    this.axios.get("/article/" + this.aid).then(response => {
+      this.content = response.data.article.content;
+      this.title = response.data.article.title;
+    });
   }
 };
 </script>
 
 <style>
 @import "~simplemde/dist/simplemde.min.css";
+.markdown-editor .CodeMirror {
+  height: 600px;
+}
 </style>

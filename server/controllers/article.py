@@ -69,3 +69,38 @@ class ArticleDelete(BaseController):
 
     def post(self):
         pass
+
+class ArticleDetail(BaseController):
+    urls = r"/article/([0-9]+)/?"
+
+    def get(self, aid):
+        # import pdb; pdb.set_trace()
+        article = (self.session.query(Article)
+                .filter(Article.id == aid)
+                .first()
+                )
+        self.write(dict(
+            status=0,
+            article=article.dict,
+            ))
+        
+    def post(self, aid):
+        body = self.request.body
+        if body == "":
+            self.write({"status": 1})
+            return
+        body = json.loads(body)
+
+        (self.session
+        .query(Article)
+        .filter(Article.id == aid)
+        .update(
+            body
+            )
+        )
+        res = self.commit()
+        if res:
+
+            self.write({"status": 0})
+        else:
+            self.write({"status": 1})

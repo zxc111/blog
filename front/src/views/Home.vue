@@ -54,10 +54,8 @@ export default {
             alert("error");
           }
         });
-        // console.log(123);
+        
         setTimeout(_this.$prism.highlightAll, 1000)      ;
-        // setTimeout(function() {console.log(321)}, 10000)      ;
-        // _this.$prism.highlightElement(document.getElementsByClassName("hello"));
 
     }
   },

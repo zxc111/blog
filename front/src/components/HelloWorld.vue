@@ -36,8 +36,7 @@ export default {
   },
   methods: {
     edit: function() {
-      console.log(123);
-      location.href = "/edit/" + this.aid;
+      this.$router.push({ name: 'edit', params: { aid: this.aid }})
     }
   }
 };
